@@ -7,6 +7,7 @@ from simulation.map import Map
 from rendering.draw import draw_map
 from models.rock import Rock
 from models.herbivore import Herbivore
+from actions.move_action import MoveAction
 
 
 class SimulationManager:
@@ -33,4 +34,5 @@ for generator in entity_generators:
     generator.execute()
 
 draw_map(world)
-
+herbs = world.get_entities_of_type(Herbivore)
+print(herbs[0].x, herbs[0].y)

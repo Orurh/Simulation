@@ -1,9 +1,8 @@
 from abc import ABC
 
 class Entity(ABC):
-    def __init__(self, x,y, speed = 0, hp = 0):
+    def __init__(self, x,y, speed = None, hp = None):
         self.x = x
         self.y = y
         self.speed = speed
         self.hp = hp
-        # self.position = np.array([x, y])
