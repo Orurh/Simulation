@@ -50,24 +50,6 @@ class Map:
         key = (x, y)
         return self.entities.get(key, None)
 
-    def move_entity(self, entity: Entity, new_x: int, new_y: int) -> None:
-        """
-        Перемещает объект на новые координаты.
-
-        :param entity: Объект, который нужно переместить
-        :param new_x: Новая координата X
-        :param new_y: Новая координата Y
-        :raises ValueError: Если новая ячейка уже занята
-        """
-        old_key = (entity.x, entity.y)
-        new_key = (new_x, new_y)
-        if new_key in self.entities:
-            raise ValueError("Cannot move entity to occupied cell")
-        self.entities[new_key] = self.entities.pop(old_key)
-        self.free_cells.remove(new_key)
-        self.free_cells.append(old_key)
-        entity.x = new_x
-        entity.y = new_y
 
     def get_free_cells(self) -> List[Tuple[int, int]]:
         """

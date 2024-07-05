@@ -6,3 +6,4 @@ class Entity(ABC):
         self.y = y
         self.speed = speed
         self.hp = hp
+        self.current_path = None
