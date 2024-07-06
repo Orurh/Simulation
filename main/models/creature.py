@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
 from models.entity import Entity
 
@@ -8,10 +8,6 @@ class Creature(Entity, ABC):
         super().__init__(x, y)
         self.speed = speed
         self.hp = hp
-
-    @abstractmethod
-    def make_move(self):
-        pass
 
     def get_speed(self):
         return self.speed

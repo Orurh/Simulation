@@ -6,6 +6,6 @@ class EntityGeneratorStrategy(ABC):
 
 
     @abstractmethod
-    def generate(self, entity_type, target_percent) -> None:
+    def generate_or_perform_action(self, entity_type, target_percent) -> None:
         pass
 

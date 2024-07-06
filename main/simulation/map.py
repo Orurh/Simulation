@@ -102,3 +102,8 @@ class Map:
         """
         count_of_type = self.get_count_of_type(entity_type)
         return (count_of_type / (self.width * self.height)) * 100
+
+    def is_blocked(self, x: int, y: int) -> bool:
+        """Возвращает True, если ячейка с координатами (x, y) заблокирована"""
+        key = (x, y)
+        return key in self.entities

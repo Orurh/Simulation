@@ -8,7 +8,7 @@ class StaticEntityGeneratorStrategy(EntityGeneratorStrategy):
         self.entity_type = entity_type
         self.target_percent = target_percent
 
-    def generate(self) -> None:
+    def generate_or_perform_action(self) -> None:
         while self.world.get_percent_of_type(self.entity_type) < self.target_percent:
             free_cells = list(self.world.get_free_cells())
             if free_cells:
@@ -25,7 +25,7 @@ class DynamicEntityGeneratorStrategy(EntityGeneratorStrategy):
         self.speed_range = speed_range
         self.hp_range = hp_range
 
-    def generate(self) -> None:
+    def generate_or_perform_action(self) -> None:
         while self.world.get_percent_of_type(self.entity_type) < self.target_percent:
             free_cells = list(self.world.get_free_cells())
             if free_cells:
