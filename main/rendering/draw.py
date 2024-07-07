@@ -1,6 +1,6 @@
-from config.settings import width, height
 
-def draw_map(world):
+
+def draw_map(world, height, width):
     for y in range(height):
         for x in range(width):
             if world.get_entity_at(x, y) is None:

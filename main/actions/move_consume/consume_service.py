@@ -1,13 +1,10 @@
 from actions.Pathfinding import PathfindingService
-from actions.init_actions import DynamicEntityGeneratorStrategy
-from config.settings import speed_of_predator, hp_of_predator
+from config.config import GameConfig
 from models import Entity, Herbivore
 from models.predator import Predator
 
 
-class ConsumptionService(PathfindingService):
-    def __init__(self, world):
-        self.world = world
+class ConsumptionService(PathfindingService, GameConfig):
 
     def move_to(self, entity: Entity, x: int, y: int) -> None:
         """
@@ -18,7 +15,11 @@ class ConsumptionService(PathfindingService):
             y (int): Новая координата Y.
         """
         # Удаляем объект из его текущей позиции
-        self.world.remove_entity(entity)
+        try:
+            self.world.remove_entity(entity)
+        except KeyError:
+            pass
+
         if entity.hp == 0:
             return
         # Обновляем координаты объекта
@@ -29,7 +30,6 @@ class ConsumptionService(PathfindingService):
             entity.hp -= 10
         # Добавляем объект на новую позицию
         self.world.add_entity(entity)
-
 
     def consume_target(self, entity: Entity, target: Entity) -> None:
         """
@@ -42,10 +42,11 @@ class ConsumptionService(PathfindingService):
 
         # Удаляем объект-цель с карты
         self.world.remove_entity(target)
-        if entity.hp >=100:
-            predator = Predator(entity.x, entity.y, speed_of_predator, hp_of_predator)
+
+        if entity.hp >= 100:
+            predator = Predator(entity.x, entity.y, self.speed_of_predator, self.hp_of_predator)
             self.move_to(predator, target.x, target.y)
             return
         # Перемещаем объект на место, где была цель
         self.move_to(entity, target.x, target.y)
-        entity.hp += 10
+        entity.hp += target.hp

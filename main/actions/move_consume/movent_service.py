@@ -2,6 +2,7 @@ import random
 
 from actions.Pathfinding import PathfindingService
 from actions.move_consume.consume_service import ConsumptionService
+
 from models import Entity, Herbivore
 
 class Move(ConsumptionService):
