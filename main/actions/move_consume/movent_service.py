@@ -1,9 +1,8 @@
 import random
 
-from actions.Pathfinding import PathfindingService
 from actions.move_consume.consume_service import ConsumptionService
+from models import Entity
 
-from models import Entity, Herbivore
 
 class Move(ConsumptionService):
     def generate_or_perform_action(self, entity: Entity) -> None:
@@ -28,8 +27,6 @@ class Move(ConsumptionService):
         else:
             # Если новая позиция недоступна, остаемся на месте
             pass
-
-
 
     def move(self, entity: Entity, goal_type: type) -> bool:
         """

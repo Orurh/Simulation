@@ -1,5 +1,6 @@
-from actions.action import EntityGeneratorStrategy
 from random import choice
+
+from actions.action import EntityGeneratorStrategy
 
 
 class StaticEntityGeneratorStrategy(EntityGeneratorStrategy):

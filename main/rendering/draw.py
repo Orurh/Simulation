@@ -1,3 +1,4 @@
+from models import Herbivore
 
 
 def draw_map(world, height, width):
@@ -7,6 +8,9 @@ def draw_map(world, height, width):
                 print("|__|", end="")
             else:
                 print(world.get_entity_at(x, y), end="")
-
         print()
 
+    print('====' * width)
+    sas = world.get_entities_of_type(Herbivore)
+    print(sas[0], len(sas))
+    print()

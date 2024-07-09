@@ -1,13 +1,14 @@
 class GameConfig:
-    speed_of_predator = 2
+    speed_of_predator = 4
     hp_of_predator = 100
+
     def __init__(self):
-        self.width = 30
-        self.height = 30
+        self.width = 20
+        self.height = 20
         self.persent_of_rock = 5
         self.persent_of_tree = 5
         self.persent_of_grass = 10
-        self.persent_of_herbivore = 2
+        self.persent_of_herbivore = 4
         self.hp_of_herbivore = 10
         self.hp_of_grass = 10
         self.speed_of_grass = 0

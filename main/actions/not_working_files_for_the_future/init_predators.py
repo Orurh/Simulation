@@ -1,6 +1,5 @@
 from models import Entity
 from models.predator import Predator
-from config.config import GameConfig
 
 
 class PredatorTransformationService:
@@ -12,7 +11,6 @@ class PredatorTransformationService:
         self.world = world
         self.speed_of_predator = speed_of_predator
         self.hp_of_predator = hp_of_predator
-
 
     def transform_to_predator(self, entity: Entity) -> None:
         """

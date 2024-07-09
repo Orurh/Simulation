@@ -1,4 +1,5 @@
 from typing import Dict, Tuple, List, Optional, Set
+
 from models.entity import Entity
 
 
@@ -10,11 +11,19 @@ class Map:
         :param width: Ширина карты
         :param height: Высота карты
         """
-        self.width = width
-        self.height = height
+        self.__width = width
+        self.__height = height
         self.entities: Dict[Tuple[int, int], Entity] = {}  # Словарь для хранения всех объектов на карте
         self.free_cells: List[Tuple[int, int]] = [(x, y) for x in range(width) for y in
                                                   range(height)]  # Инициализация всех свободных ячеек
+
+    @property
+    def width(self) -> int:
+        return self.__width
+
+    @property
+    def height(self) -> int:
+        return self.__height
 
     def add_entity(self, entity: Entity) -> None:
         """
@@ -50,7 +59,6 @@ class Map:
         key = (x, y)
         return self.entities.get(key, None)
 
-
     def get_free_cells(self) -> List[Tuple[int, int]]:
         """
         Получает список всех свободных ячеек на карте.
@@ -75,7 +83,6 @@ class Map:
         """
         return (len(self.entities) / (self.width * self.height)) * 100
 
-
     def get_entities_of_type(self, entity_type: type) -> List[Entity]:
         """
         Получает список всех объектов на карте указанного типа.
@@ -83,7 +90,7 @@ class Map:
         :param entity_type: Тип объектов, которые нужно получить
         :return: Список объектов указанного типа
         """
-        return [entity for entity in self.entities.values() if isinstance(entity, entity_type)]
+        return [entity for entity in self.entities.values() if type(entity) == entity_type]
 
     def get_count_of_type(self, entity_type: type) -> int:
         """
@@ -101,7 +108,7 @@ class Map:
         :return: Процент объектов указанного типа
         """
         count_of_type = self.get_count_of_type(entity_type)
-        return (count_of_type / (self.width * self.height)) * 100
+        return (count_of_type / (self.__width * self.__height)) * 100
 
     def is_blocked(self, x: int, y: int) -> bool:
         """Возвращает True, если ячейка с координатами (x, y) заблокирована"""

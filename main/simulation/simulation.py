@@ -1,7 +1,6 @@
 import asyncio
 import os
 import sys
-from time import sleep
 
 from actions.init_actions import StaticEntityGeneratorStrategy, DynamicEntityGeneratorStrategy
 from actions.move_consume.movent_service import Move
@@ -43,26 +42,31 @@ class SimulationManager:
         herbs = self.world.get_entities_of_type(Herbivore)
         preds = self.world.get_entities_of_type(Predator)
 
-        for _ in range(1, self.game_config.max_speed + 1):
-            if 2 % _ == 0:
-                for pred in preds:
-                    path = Move(self.world).a_star_path(pred, Herbivore)
-                    if path:
-                        Move(self.world).move(pred, Herbivore)
-                    else:
-                        # Если путь не найден, пропускаем этот ход для Predator
-                        continue
-
-            if 1 % _ == 0:
-                for herb in herbs:
-                    Move(self.world).move(herb, Grass)
-
+        for _ in range(min(self.game_config.speed_of_herbivore, self.game_config.speed_of_predator)):
+            for herb in herbs:
+                Move(self.world).move(herb, Grass)
+            for pred in preds:
+                Move(self.world).move(pred, Herbivore)
             self.render_world()
             await asyncio.sleep(0.1)
             self.clear_console()
 
+        # Выполняем дополнительные ходы для Predator, если его скорость больше
+        if self.game_config.speed_of_predator > self.game_config.speed_of_herbivore:
+            for _ in range(self.game_config.speed_of_predator - self.game_config.speed_of_herbivore):
+                for pred in preds:
+                    Move(self.world).move(pred, Herbivore)
+                self.render_world()
+                await asyncio.sleep(0.1)
+                self.clear_console()
+
+        self.render_world()
+        await asyncio.sleep(0.2)
+        self.clear_console()
+
     def render_world(self) -> None:
         draw_map(self.world, self.game_config.height, self.game_config.width)
+        print(f"Turn: {self.turn_count}")
 
     def clear_console(self) -> None:
         """Очищает консоль в зависимости от операционной системы"""
