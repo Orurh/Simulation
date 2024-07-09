@@ -1,4 +1,1 @@
-memory-profiler==0.61.0
-pi==0.1.2
-psutil==5.9.8
-pytube==15.0.0
+Empty

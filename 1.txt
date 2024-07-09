@@ -1,5 +1,0 @@
-pip freeze > requirements.txt 
-список исп-х библиотек отправить на файл requirements.txt 
-
-pip install -r requirements.txt 
-(-r = рекурсивно) установить все библиотеки с этого файла
